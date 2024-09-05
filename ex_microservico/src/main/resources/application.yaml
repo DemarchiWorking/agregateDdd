@@ -1,0 +1,48 @@
+app:
+  myport: ${PORT:0}
+server:
+  port: 8081
+spring:
+  application:
+    name: cliente-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: senha
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+
+eureka:
+  instance:
+        instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+#server.port=8081
+#h2config
+#spring.h2.console.enabled=true
+#spring.h2.console.path=/h2-console
+#spring.datasource.url=jdbc:h2:mem:testdb
+#spring.datasource.driverClassName=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=1234
+#3spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+#Eureka
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+#eureka.instance.hostname=localhost
+#eureka.client.register-with-eureka=true
+#eureka.client.fetch-registry=true
+
+#spring.cloud.config.enabled=false
+#spring.cloud.config.import-check.enable=false
