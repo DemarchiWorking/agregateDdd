@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: produto-service
+spec:
+  selector:
+    matchLabels:
+      app: produto-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: produto-service
+    spec:
+      containers:
+        - name: produto-service
+          image: produto-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: EUREKA_SERVER_URI
+              value: "http://eureka-server:8761/eureka/"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/produtosdb"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "usuario"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "senha"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: produto-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 31001  # Escolha uma porta entre 30000 e 32767
+  selector:
+    app: produto-service

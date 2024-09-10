@@ -1,7 +1,7 @@
 app:
   myport: ${PORT:0}
 server:
-  port: 8081
+  port: ${app.myport}
 spring:
   application:
     name: cliente-service
